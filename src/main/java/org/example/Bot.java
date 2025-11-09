@@ -37,9 +37,13 @@ public class Bot extends TelegramLongPollingBot {
                 case "/help":
                     response = new HelpCommand().getResponse();
                     break;
+                case "/author":
+                    response = new AuthorCommand().getResponse();
+                    break;
                 default:
                     response = "Извини, я не знаю такую команду. Напиши /help для списка доступных команд.";
                     break;
+
             }
 
             sendMessage(chatId, response);
