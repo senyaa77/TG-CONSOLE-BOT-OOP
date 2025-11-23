@@ -1,9 +1,9 @@
 package org.example.commands;
 
+public class GoodbyeCommand implements Command {
 
-public class GoodbyeCommand {
+    @Override
     public String getResponse() {
-        return "Прощай, премногоуважаемый пользователь!";
+        return "👋 До встречи!";
     }
 }
-

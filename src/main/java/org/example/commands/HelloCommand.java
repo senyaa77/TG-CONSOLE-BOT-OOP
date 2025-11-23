@@ -1,7 +1,9 @@
 package org.example.commands;
 
-public class HelloCommand {
+public class HelloCommand implements Command {
+
+    @Override
     public String getResponse() {
-        return "Привет, пользователь! Ты замечательный человек и прекрасная личность!";
+        return "👋 Привет! Я игровой статус-бот.\nПопробуй /discord или /help.";
     }
 }
