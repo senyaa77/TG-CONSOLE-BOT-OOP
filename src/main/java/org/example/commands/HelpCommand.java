@@ -10,7 +10,9 @@ public class HelpCommand implements Command {
                 /start — приветствие  
                 /hello — поздороваться  
                 /goodbye — попрощаться  
-                /discord — статус серверов Discord  
+                /discord — статус серверов Discord
+                /dota2 - статус серверов Dota 2
+                /brawlstars - статус серверов Brawl Stars
                 /help — показать это меню 
                 
                 В будущем появятся команды:
