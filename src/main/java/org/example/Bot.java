@@ -21,6 +21,8 @@ public class Bot extends TelegramLongPollingBot {
         commands.put("/goodbye", new GoodbyeCommand());
         commands.put("/help", new HelpCommand());
         commands.put("/discord", new DiscordCommand());
+        commands.put("/dota2", new Dota2Command());
+        command.put("/brawl", new BrawlStarsCommand());
     }
 
     @Override
