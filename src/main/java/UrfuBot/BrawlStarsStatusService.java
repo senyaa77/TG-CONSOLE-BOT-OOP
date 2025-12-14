@@ -1,4 +1,4 @@
-package org.example.services;
+package UrfuBot;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

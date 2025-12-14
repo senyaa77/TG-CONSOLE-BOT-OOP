@@ -35,19 +35,22 @@ public class Commands {
         @Override
         public String getResponse() {
             return """
-                    📘 *Справка по командам:*
-                   \s
-                    /start — приветствие \s
-                    /hello — поздороваться \s
-                    /goodbye — попрощаться \s
-                    /discord — статус серверов Discord \s
-                    /help — показать это меню\s
-                   \s
-                    В будущем появятся команды:
-                    • /valorant \s
-                    • /fortnite \s
-                   \s
-                   \s""";
+                📘 *Справка по командам:*
+               \s
+                /start — приветствие \s
+                /hello — поздороваться \s
+                /goodbye — попрощаться \s
+                /discord — статус серверов Discord
+                /dota2 — статус серверов Dota 2
+                /brawl — статус серверов Brawl Stars
+                /help — показать это меню\s
+                /stat — рекомендации на основе твоих заметок за день
+               \s
+                В будущем появятся команды:
+                • /valorant \s
+                • /fortnite \s
+               \s
+               \s""";
         }
     }
 
@@ -58,6 +61,21 @@ public class Commands {
         }
     }
 
+    public static class Dota2Command implements Command {
+
+        @Override
+        public String getResponse() {
+            return Dota2StatusService.getDota2Status();
+        }
+    }
+
+    public static class BrawlStarsCommand implements Command {
+
+        @Override
+        public String getResponse() {
+            return BrawlStarsStatusService.getBrawlStarsStatus();
+        }
+    }
 
     public static class StatCommand {
 
