@@ -1,6 +1,5 @@
-package org.example;
+package UrfuBot;
 
-import org.example.commands.*;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -8,32 +7,44 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Bot extends TelegramLongPollingBot {
 
-    private final Map<String, Command> commands = new HashMap<>();
+    private final Map<String, Commands.Command> commands = new HashMap<>();
+    private Users users = new Users();
 
     public Bot() {
-        commands.put("/start", new HelloCommand());
-        commands.put("/hello", new HelloCommand());
-        commands.put("/goodbye", new GoodbyeCommand());
-        commands.put("/help", new HelpCommand());
-        commands.put("/discord", new DiscordCommand());
+        commands.put("/start", new Commands.HelloCommand());
+        commands.put("/hello", new Commands.HelloCommand());
+        commands.put("/goodbye", new Commands.GoodbyeCommand());
+        commands.put("/help", new Commands.HelpCommand());
+        commands.put("/discord", new Commands.DiscordCommand());
     }
 
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
-
             String messageText = update.getMessage().getText().trim();
             long chatId = update.getMessage().getChatId();
 
-            Command cmd = commands.get(messageText);
+            if (messageText.equals("/stat")) {
+                try {
+                    sendMessage(chatId, Commands.StatCommand.getSmartResponse(users, "" + chatId));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                return;
+            }
+            // Обработка остальных команд
+            Commands.Command cmd = commands.get(messageText);
             String response = (cmd != null)
                     ? cmd.getResponse()
-                    : "❓ Не знаю такую команду. Напиши /help.";
+                    : users.Produce("" + chatId, messageText, String.valueOf(Instant.ofEpochSecond(update.getMessage().getDate())));
 
             sendMessage(chatId, response);
         }
@@ -52,7 +63,7 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "YourBotName";
+        return "Cheburashka";
     }
 
     @Override

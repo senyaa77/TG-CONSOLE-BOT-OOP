@@ -1,4 +1,4 @@
-package org.example.services;
+package UrfuBot;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,13 +8,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class DiscordStatusService {
+public class StatusService {
 
-    private static final String STATUS_URL = "https://discordstatus.com/api/v2/summary.json";
-    private static final ObjectMapper mapper = new ObjectMapper();
-
+    // Метод для получения статуса Discord
     public static String getDiscordStatus() {
         try {
+            String STATUS_URL = "https://discordstatus.com/api/v2/summary.json";
+            ObjectMapper mapper = new ObjectMapper();
             HttpClient client = HttpClient.newHttpClient();
 
             HttpRequest request = HttpRequest.newBuilder()
@@ -64,4 +64,3 @@ public class DiscordStatusService {
         }
     }
 }
-
