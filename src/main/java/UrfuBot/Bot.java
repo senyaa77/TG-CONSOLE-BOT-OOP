@@ -17,11 +17,13 @@ public class Bot extends TelegramLongPollingBot {
     private Users users = new Users();
 
     public Bot() {
-        commands.put("/start", new Commands.HelloCommand());
-        commands.put("/hello", new Commands.HelloCommand());
-        commands.put("/goodbye", new Commands.GoodbyeCommand());
-        commands.put("/help", new Commands.HelpCommand());
-        commands.put("/discord", new Commands.DiscordCommand());
+        commands.put("/start", new HelloCommand());
+        commands.put("/hello", new HelloCommand());
+        commands.put("/goodbye", new GoodbyeCommand());
+        commands.put("/help", new HelpCommand());
+        commands.put("/discord", new DiscordCommand());
+        commands.put("/dota2", new Dota2Command());
+        commands.put("/brawl", new BrawlStarsCommand());
     }
 
     @Override
