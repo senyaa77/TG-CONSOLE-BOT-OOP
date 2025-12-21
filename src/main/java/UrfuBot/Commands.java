@@ -65,7 +65,7 @@ public class Commands {
 
         @Override
         public String getResponse() {
-            return Dota2StatusService.getDota2Status();
+            return StatusService.getDota2Status();
         }
     }
 
@@ -73,7 +73,7 @@ public class Commands {
 
         @Override
         public String getResponse() {
-            return BrawlStarsStatusService.getBrawlStarsStatus();
+            return StatusService.getBrawlStarsStatus();
         }
     }
 
