@@ -72,4 +72,26 @@ public class StatusService {
             return "❌ Ошибка получения статуса " + serviceName + ".";
         }
     }
+
+    public static String getDiscordStatus() {
+        return getStatus(
+                "Discord",
+                "https://discordstatus.com/api/v2/summary.json"
+        );
+    }
+
+    public static String getBrawlStarsStatus() {
+        return getStatus(
+                "Brawl Stars",
+                "https://brawlstars.statuspage.io/api/v2/summary.json"
+        );
+    }
+
+     public static String getDota2Status() {
+        return getStatus(
+                "Dota 2",
+                "https://crowbar.steampowered.com/status/summary.json](https://crowbar.steampowered.com/status/summary.json"
+        );
+    }
+    
 }
