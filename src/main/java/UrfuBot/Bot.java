@@ -4,6 +4,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +33,21 @@ public class Bot extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText().trim();
             long chatId = update.getMessage().getChatId();
+
+
+
+            // Обработка команды /motivate
+            if (messageText.equals("/motivate")) {
+                try {
+                    execute(Challenge.getMotivation(update)); // Challenge возвращает SendPhoto
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return; // чтобы бот не выполнял дальнейшую обработку
+            }
+
+
+
 
             if (messageText.equals("/stat")) {
                 try {
