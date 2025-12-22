@@ -4,8 +4,13 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +32,33 @@ public class Bot extends TelegramLongPollingBot {
         commands.put("/dota2", new Commands.Dota2Command());
         commands.put("/brawl", new Commands.BrawlStarsCommand());
     }
+
+    private ReplyKeyboardMarkup getMainKeyboard() {
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        keyboardMarkup.setResizeKeyboard(true); // клавиатура под размер экрана
+        keyboardMarkup.setOneTimeKeyboard(false); // клавиатура не исчезает после нажатия
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        // Первая строка кнопок
+        KeyboardRow row1 = new KeyboardRow();
+        row1.add(new KeyboardButton("/start"));
+        row1.add(new KeyboardButton("/hello"));
+        row1.add(new KeyboardButton("/goodbye"));
+
+        // Вторая строка кнопок
+        KeyboardRow row2 = new KeyboardRow();
+        row2.add(new KeyboardButton("/motivate"));
+        row2.add(new KeyboardButton("/discord"));
+        row2.add(new KeyboardButton("/dota2"));
+
+        keyboard.add(row1);
+        keyboard.add(row2);
+
+        keyboardMarkup.setKeyboard(keyboard);
+        return keyboardMarkup;
+    }
+
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -70,8 +102,11 @@ public class Bot extends TelegramLongPollingBot {
     }
 
     private void sendMessage(long chatId, String text) {
-        SendMessage message = new SendMessage(String.valueOf(chatId), text);
-        message.setParseMode("Markdown");
+        SendMessage message = new SendMessage();
+        message.setChatId(String.valueOf(chatId));
+        message.setText(text);
+        message.setParseMode("Markdown"); // или null, если без Markdown
+        message.setReplyMarkup(getMainKeyboard()); // <-- подключаем клавиатуру
 
         try {
             execute(message);
@@ -79,6 +114,7 @@ public class Bot extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public String getBotUsername() {
